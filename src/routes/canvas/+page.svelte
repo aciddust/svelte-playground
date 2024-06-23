@@ -10,6 +10,23 @@
   onMount(() => {
     canvas = new fabric.Canvas('c');
   });
+  function toggleDrawingMode() {
+    canvas.isDrawingMode = !canvas.isDrawingMode;
+    if (canvas.isDrawingMode) {
+      canvas.freeDrawingBrush.width = 10;
+      canvas.freeDrawingBrush.color = 'black';
+    }
+  }
+
+  function toggleEraserMode() {
+    canvas.isDrawingMode = !canvas.isDrawingMode;
+    if (canvas.isDrawingMode) {
+      canvas.freeDrawingBrush.width = 10;
+      canvas.freeDrawingBrush.color = 'white';
+    } else {
+      canvas.isDrawingMode = false;
+    }
+  }
 
   function loadImage(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -112,6 +129,12 @@
         if (e.target instanceof HTMLInputElement)
         adjustContrast(parseFloat(e.target.value))
       }}">
+    </div>
+    <div>
+      <button on:click="{toggleDrawingMode}">Toggle Drawing Mode</button>
+    </div>
+    <div>
+      <button on:click="{toggleEraserMode}">Toggle Eraser Mode</button>
     </div>
     <hr>
     <div class="pt-10">
